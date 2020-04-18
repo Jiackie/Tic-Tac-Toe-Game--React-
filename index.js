@@ -62,8 +62,10 @@ class Game extends React.Component {
     this.state = {
       history: [{
         squares: Array(9).fill(null),
+        col: null,
+        row: null
       }],
-      stepNumber:0,
+      stepNumber: 0,
       xIsNext: true,
     };
   }
@@ -72,6 +74,8 @@ class Game extends React.Component {
     const history = this.state.history.slice(0,this.state.stepNumber +1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
+    const row = Math.floor(i / 3);
+    const col = i - row * 3;
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
@@ -80,6 +84,8 @@ class Game extends React.Component {
     this.setState({
       history: history.concat([{
         squares: squares,
+        col: col,
+        row: row
       }]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
@@ -95,16 +101,21 @@ class Game extends React.Component {
 
   render() {
     const history = this.state.history;
-    const current = history[this.state.stepNumber];
+    const stepNumber = this.state.stepNumber;
+    const current = history[stepNumber];
     const winner = calculateWinner(current.squares);
 
     const moves = history.map((step, move) => {
       const desc = move ?
-        'Go to move #' + move :
+        'Go to move #' + move + ' at position : ( ' + step.row + ', ' + step.col + ' )':
         'Go to game start';
       return (
         <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
+          <button
+          onClick={() => this.jumpTo(move)}
+          className={` ${stepNumber === move? 'bold': ''} `}>
+            { desc }
+          </button>
         </li>
       );
     });
