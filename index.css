@@ -41,6 +41,10 @@ h1 {
   outline: none;
 }
 
+.win {
+  background-color: #03fc94;
+}
+
 .kbd-navigation .square:focus {
   background: #ddd;
 }
@@ -52,8 +56,23 @@ h1 {
 
 .game-info {
   margin-left: 20px;
+  font-size: 1rem;
+}
+
+.game-info ol li button {
+  font-size: 0.8rem;
 }
 
 .bold {
   font-weight: bold;
+}
+
+.sort-btn {
+  float: right;
+  background-color: #fcba03;
+  font-weight: 500;
+}
+
+.game-header {
+  width: 14rem;
 }
